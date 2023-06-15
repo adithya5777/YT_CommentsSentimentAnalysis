@@ -65,10 +65,26 @@ def scrapfyt(url):
     for expander_tag in expander_tags:
         driver.execute_script(
             "arguments[0].setAttribute('max-number-of-lines', '40');", expander_tag)
+        
+    ## title of video
+    video_title = driver.find_element(By.NAME, 'title').get_attribute('content')
+
+     ## owner of video
+    video_owner1 = driver.find_elements(By.XPATH, '//*[@id="text"]/a')
+    video_owner = []
+    for owner in video_owner1:
+      video_owner.append(owner.text)
+    video_owner = video_owner[0]
+
+    # total comments with replies
+    video_comment_with_replies = driver.find_element(By.XPATH, '//*[@id="count"]/yt-formatted-string/span[1]').text + ' Comments'
 
     # Scraping all the comments
     users = driver.find_elements(By.XPATH, '//*[@id="author-text"]/span')
     comments = driver.find_elements(By.XPATH, '//*[@id="content-text"]')
+
+    ##total comments without replies
+    
 
     with io.open('comments.csv', 'w', newline='', encoding="utf-16") as file:
         writer = csv.writer(file, delimiter=",", quoting=csv.QUOTE_ALL)
@@ -81,12 +97,11 @@ def scrapfyt(url):
     all_comments = commentsfile.replace(np.nan, '-', regex=True)
     all_comments = all_comments.to_csv("Full Comments.csv", index=False)
 
-    video_comment_without_replies = str(
-        len(commentsfile.axes[0])) + ' Comments'
+    video_comment_without_replies = str(len(commentsfile.axes[0])) + ' Comments'
     driver.close()
-    return video_comment_without_replies
+    return all_comments, video_title, video_owner, video_comment_with_replies, video_comment_without_replies
 
 
-link = input("Enter URL: ")
-s = scrapfyt(link)
-print(s)
+# link = input("Enter URL: ")
+# s = scrapfyt(link)
+# print(s)

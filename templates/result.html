@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    
+    table {
+        border-collapse: collapse;
+    }
+    
+    th,
+    td {
+        border: 1px solid black;
+        padding: 8px;
+    }
+    
+    .vid-det {
+        display: block;
+    }
+    
+    th {
+        display: none;
+    }
+</style>
+
+<head>
+    <title>Result</title>
+</head>
+
+<body>
+    <h1>Result</h1>
+    <p>You entered: {{ input_value }}</p>
+    <p>Value: {{ sent }}</p>
+    <table>
+        <tr>
+            <th class="vid-det">Video Title</th>
+            <td>
+                {{ title }}
+            </td>
+        </tr>
+        <tr>
+            <th class="vid-det">Channel</th>
+            <td>{{ owner }}</td>
+        </tr>
+        <tr>
+            <th class="vid-det">No. of Comments(inc. Replies)</th>
+            <td>{{ comment_w_replies }}</td>
+        </tr>
+        <tr>
+            <th class="vid-det">No. of Comments(without Replies)</Command>
+            </th>
+            <td>{{ comment_wo_replies }}</td>
+        </tr>
+        <tr>
+            <th class="vid-det">Total Positive Comments</th>
+            <td>{{ positive_comment }}</td>
+        </tr>
+        <tr>
+            <th class="vid-det">Total Negative Comments</th>
+            <td>{{ negative_comment }}</td>
+        </tr>
+    </table>
+    <div style="overflow-x: auto;">
+
+        <h3><span class="pos_head">Positive Comments</span></h3>
+        <table>
+            <tr id="bre">
+                {% for pos_comments in pos_comments_csv %} {{ pos_comments | safe}} {% endfor %}
+            </tr>
+        </table><br>
+
+    </div>
+    <!-- <div style="overflow-x: auto;">
+        <h3><span class="pos_head">Positive Comments</span></h3>
+        <table>
+            <tr id="bre">
+
+                {% for pos_comments in pos_comments_csv %} {{ pos_comments | replace('\n', '<br>') | safe }} {% endfor %}
+            </tr>
+        </table><br>
+    </div> -->
+    <div style="overflow-x: auto;">
+        <h3><span class="neg_head">Negative Comments</span></h3>
+        <table>
+            <tr id="bre">
+                {% for neg_comments in neg_comments_csv %} {{ neg_comments | safe}} {% endfor %}
+            </tr>
+        </table><br>
+    </div>
+</body>
+
+<script>
+    var paragraph = document.getElementById("bre");
+    var text = paragraph.innerHTML;
+    var replacedText = text.replace(/\n/g, "<br>");
+    paragraph.innerHTML = replacedText;
+</script>
+
+</html>
