@@ -6,19 +6,10 @@ from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import RegexpTokenizer
 from textblob import TextBlob
 
-# Download necessary resources from NLTK
-# nltk.download('punkt')
-# nltk.download('vader_lexicon')
-# nltk.download('stopwords')
-# nltk.download('wordnet')
-
-# Load the comments from the CSV file
 df = pd.read_csv("Full Comments.csv")
 
-# Initialize the sentiment analyzer
 sia = SentimentIntensityAnalyzer()
 
-# Load the NRC Emotion Lexicon
 nrc_lexicon = pd.read_csv("NRC-Emotion-Lexicon-Wordlevel-v0.92.txt",
                           sep='\t', names=["word", "emotion", "association"])
 
@@ -29,18 +20,14 @@ tokenizer = RegexpTokenizer(r'\w+')
 
 
 def preprocess_text(text):
-    # Tokenize
     tokens = tokenizer.tokenize(text.lower())
 
-    # Remove stopwords and lemmatize
     filtered_tokens = [lemmatizer.lemmatize(
         token) for token in tokens if token not in stopwords]
 
     return ' '.join(filtered_tokens)
 
 # Function to get the dominant emotion for a comment
-
-
 def get_dominant_emotion(comment):
     emotion_scores = {emotion: 0 for emotion in set(nrc_lexicon["emotion"])}
 
@@ -56,7 +43,6 @@ def get_dominant_emotion(comment):
     return dominant_emotion
 
 
-# Perform emotion analysis on each comment
 df["ProcessedComment"] = df["Comment"].apply(preprocess_text)
 df["Emotion"] = df["ProcessedComment"].apply(get_dominant_emotion)
 
@@ -86,8 +72,3 @@ for emotion in unique_emotions:
     emotion_comments = pd.read_csv(filename)
     total_comments_filtered += len(emotion_comments)
 
-# Check if the sum of comments in filtered CSV files is equal to the original number of comments
-if total_comments_filtered == len(df):
-    print("Number of comments in Full Comments is equal to the sum of comments in the filtered CSV files.")
-else:
-    print("Number of comments in Full Comments is not equal to the sum of comments in the filtered CSV files.")

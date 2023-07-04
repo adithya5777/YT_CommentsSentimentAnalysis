@@ -1,12 +1,28 @@
 import pandas as pd
 import csv
+import nltk
 import os.path as checkcsv
 from plott import plot
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
+from nltk.corpus import stopwords
+from nltk.stem import WordNetLemmatizer
+from nltk.tokenize import word_tokenize
 
 # Downloads
 
 
+def preprocess_text(text):
+    # Tokenize the text
+    tokens = word_tokenize(text)
+
+    # Remove stopwords and perform lemmatization
+    stop_words = set(stopwords.words('english'))
+    lemmatizer = WordNetLemmatizer()
+    filtered_tokens = [lemmatizer.lemmatize(
+        token) for token in tokens if token.lower() not in stop_words]
+
+    # Return the preprocessed text as a string
+    return ' '.join(filtered_tokens)
 
 
 def sentiment_analysis(comment_file):
@@ -33,6 +49,7 @@ def sentiment_analysis(comment_file):
             return 0
         return 1
 
+    dataset['Comment'] = dataset['Comment'].apply(preprocess_text)
 
     dataset['vader_sentiment'] = dataset['Comment'].apply(
         lambda x: vader_sentiment_result(x))

@@ -6,10 +6,14 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        background-color: #C0DBEA;
     }
     
     table {
         border-collapse: collapse;
+        border-radius: 5px;
+        border: 4px;
+        width: auto;
     }
     
     th,
@@ -25,16 +29,33 @@
     th {
         display: none;
     }
+    
+    tr:nth-child(even) {
+        background-color: #C0C0C0;
+    }
+    
+    .heading {
+        /* width: 80%; */
+        text-align: center;
+    }
+    
+    * {
+        font-family: 'Roboto Mono', monospace;
+    }
 </style>
 
 <head>
     <title>Result</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora&family=Roboto+Mono:wght@300&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <h1>Result</h1>
-    <p>You entered: {{ input_value }}</p>
-    <p>Value: {{ sent }}</p>
+    <p>Link:
+        <a href="{{ input_value }}" target="_blank">{{ input_value }}</a>
+    </p>
     <table>
         <tr>
             <th class="vid-det">Video Title</th>
@@ -64,10 +85,15 @@
             <td>{{ negative_comment }}</td>
         </tr>
     </table>
+
+    <div>
+        <img src="/static/Image/my_plot.png" style="mix-blend-mode: multiply;" alt="Plot" width="900">
+    </div>
+
     <div style="overflow-x: auto;">
 
-        <h3><span class="pos_head">Positive Comments</span></h3>
-        <table>
+        <h2 class="heading "><span class="pos_head">Positive Comments</span></h2>
+        <table class="comments">
             <tr id="bre">
                 {% for pos_comments in pos_comments_csv %} {{ pos_comments | safe}} {% endfor %}
             </tr>
@@ -83,10 +109,20 @@
             </tr>
         </table><br>
     </div> -->
-    <div style="overflow-x: auto;">
-        <h3><span class="neg_head">Negative Comments</span></h3>
-        <table>
+    <div style="overflow-x: auto; font-family: 'Lora', serif;" class="fontss">
+        <h2 class="heading "><span class="neg_head">Negative Comments</span></h2>
+        <table class="comments">
             <tr id="bre">
+                <style>
+                    .dataframe {
+                        border: 3px solid black;
+                        border-collapse: collapse;
+                        /* border-radius: 50px; */
+                        text-align: center;
+                        font-family: 'Lora', serif;
+                        /* Add any other styles you want to apply to the table */
+                    }
+                </style>
                 {% for neg_comments in neg_comments_csv %} {{ neg_comments | safe}} {% endfor %}
             </tr>
         </table><br>
@@ -94,10 +130,15 @@
 </body>
 
 <script>
-    var paragraph = document.getElementById("bre");
-    var text = paragraph.innerHTML;
-    var replacedText = text.replace(/\n/g, "<br>");
-    paragraph.innerHTML = replacedText;
+    // var paragraph = document.getElementByTag("td");
+    // var paragraph = document.querySelector("td");
+    // var text = paragraph.innerText;
+    // var replacedText = text.replace(/\n/g, ' ');
+    // paragraph.innerHTML = replacedText;
+    var tdElement = document.querySelector("td");
+
+    // Replace "\n" with empty space within the <td> element
+    tdElement.innerHTML = tdElement.innerHTML.replace(/\n/g, ' ');
 </script>
 
 </html>
