@@ -3,6 +3,7 @@
 
 This project focuses on sentiment analysis of YouTube comments VADER (Valence Aware Dictionary and Sentiment Reasoner) model. The project involves collecting comments from a YouTube video through web scraping and storing them in a CSV file. The VADER model is then applied to assign sentiment scores to the comments, categorizing them as positive or negative based on predefined thresholds. Separate CSV files are created for positive and negative comments for detailed analysis. The results reveal the distribution of sentiments and provide insights into user opinions. This research showcases the practical application of sentiment analysis in understanding YouTube user sentiments, offering valuable insights for future research in sentiment analysis techniques.
 
+<a href="https://github.com/adithya5777/YT_CommentsSentimentAnalysis" target="_blank">Link to GitHub repo</a>
 
 ## Process
 
