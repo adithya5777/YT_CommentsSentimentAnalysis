@@ -20,7 +20,7 @@ Identifying the Emotional tone behind the Comment text.
 The sentiment analysis and emotion analysis tasks are implemented using various libraries and techniques in Python. The NLTK library is utilized for sentiment analysis, specifically the SentimentIntensityAnalyzer class, which applies a lexicon-based approach to determine sentiment scores. The NRC Emotion Lexicon is employed for emotion analysis, using a DataFrame to map words to different emotions.
 
 
-![Image](https://github.com/adithya5777/YT_analyzer/blob/main/arch.png)
+![Image](https://raw.githubusercontent.com/adithya5777/YT_analyzer/blob/main/arch.png)
 
 Preprocessing steps, such as lowercase conversion, tokenization, stopword removal, and lemmatization, were applied to clean and standardize the text data before analysis. These steps were carried out using functions from NLTK and TextBlob libraries. To facilitate the analysis, the comments were stored in a pandas DataFrame for efficient manipulation and processing. Separate CSV files were generated to categorize the comments based on sentiment (positive or negative) and dominant emotion.
 Overall, the implementation involved integrating various NLP libraries, applying preprocessing techniques, and leveraging lexicons and pre-trained models to perform sentiment and emotion analysis on the collected comments. The resulting CSV files provide valuable insights into sentiment and emotions expressed by users in the dataset.
